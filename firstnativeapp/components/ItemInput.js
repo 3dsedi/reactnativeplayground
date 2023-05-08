@@ -1,20 +1,22 @@
 import { useState } from "react";
 import {
     View,
-    TextInput,
+    TextInput, 
     Button,
     StyleSheet
   } from "react-native";
 export const ItemInput = (props) => {
     const [entereditem, setInteredItem] = useState("");
-    const [shopItems, setShopItems] = useState([]);
+    // const [shopItems, setShopItems] = useState([]);
     function itemInputhandler(enteredText) {
         setInteredItem(enteredText);
       }
       function addItemHandler() {
-        setShopItems((currentItems) => 
-        [...currentItems,
-       {text: entereditem, id: Math.random().toString()}]);
+        props.onAddItem(entereditem);
+        setInteredItem('')
+      //   setShopItems((currentItems) => 
+      //   [...currentItems,
+      //  {text: entereditem, id: Math.random().toString()}]);
       }
   return (
     <View style={styles.inputContainer}>
@@ -22,6 +24,7 @@ export const ItemInput = (props) => {
           style={styles.textInput}
           placeholder="Shoping List"
           onChangeText={itemInputhandler}
+          value={entereditem}
         />
         <Button title="Add Item" onPress={addItemHandler} />
       </View>
